@@ -1,0 +1,34 @@
+// Создаем массив из 100 целочисленных рандомных чисел
+const randomArray = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100));
+
+// Выводим массив в консоль
+console.log('Массив из 100 целочисленных рандомных чисел:', randomArray);
+
+// Создаем массив с номерами нулевых элементов
+const zeroIndexes = randomArray.reduce((acc, num, index) => {
+  if (num === 0) {
+    acc.push(index);
+  }
+  return acc;
+}, []);
+
+// Выводим номера нулевых элементов в консоль
+console.log('Номера нулевых элементов:', zeroIndexes);
+
+// Находим наиболее часто встречающееся и наименьшее из таких чисел
+const frequencyMap = new Map();
+let mostFrequentNumber = null;
+
+randomArray.forEach(num => {
+  if (frequencyMap.has(num)) {
+    frequencyMap.set(num, frequencyMap.get(num) + 1);
+  } else {
+    frequencyMap.set(num, 1);
+  }
+
+  if (mostFrequentNumber === null || frequencyMap.get(num) > frequencyMap.get(mostFrequentNumber) || (frequencyMap.get(num) === frequencyMap.get(mostFrequentNumber) && num < mostFrequentNumber)) {
+    mostFrequentNumber = num;
+  }
+});
+
+console.log('Наиболее часто встречающееся и наименьшее из таких чисел:', mostFrequentNumber);
